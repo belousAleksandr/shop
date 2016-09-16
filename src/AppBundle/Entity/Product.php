@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +34,32 @@ class Product
      */
     private $store;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="product")
+     */
+    protected $reviews;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $category;
+
+    /**
+     * @ORM\Column(type="float")
+     * @var float
+     */
+    private $price;
+
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $delivery;
 
     /**
      * Get id
@@ -46,6 +71,13 @@ class Product
         return $this->id;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reviews = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     /**
      * Set name
      *
@@ -90,5 +122,115 @@ class Product
     public function getStore()
     {
         return $this->store;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     * @return Product
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getId() ? $this->getName() : 'New product';
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     * @return Product
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     * @return Product
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelivery()
+    {
+        return $this->delivery;
+    }
+
+    /**
+     * @param mixed $delivery
+     * @return Product
+     */
+    public function setDelivery($delivery)
+    {
+        $this->delivery = $delivery;
+        return $this;
+    }
+
+    /**
+     * Add reviews
+     *
+     * @param \AppBundle\Entity\Review $reviews
+     * @return Product
+     */
+    public function addReview(\AppBundle\Entity\Review $reviews)
+    {
+        $this->reviews[] = $reviews;
+
+        return $this;
+    }
+
+    /**
+     * Remove reviews
+     *
+     * @param \AppBundle\Entity\Review $reviews
+     */
+    public function removeReview(\AppBundle\Entity\Review $reviews)
+    {
+        $this->reviews->removeElement($reviews);
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 }

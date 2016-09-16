@@ -47,6 +47,12 @@ class User extends BaseUser
      */
     protected $stores;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->stores = new ArrayCollection();
+    }
+
     /**
      * @return \AppBundle\Entity\Store[]|ArrayCollection
      */

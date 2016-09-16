@@ -124,6 +124,7 @@ class Store
      */
     public function addUser(User $users)
     {
+        $users->addStore($this);
         $this->users[] = $users;
 
         return $this;
@@ -147,5 +148,10 @@ class Store
     public function getUsers()
     {
         return $this->users;
+    }
+
+    public function __toString()
+    {
+        return $this->getId() ? $this->getName() : 'New store';
     }
 }

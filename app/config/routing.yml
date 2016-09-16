@@ -1,6 +1,16 @@
+admin:
+    resource: "@AdminBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+
+sonata_user:
+    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+    prefix: /admin
 
 _sonata_admin:
   resource: .
@@ -30,7 +40,7 @@ sonata_user_change_password:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
     prefix: /profile
 
-sonata_user:
-    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
-    prefix: /admin
+sylius_cart:
+    resource: "@SyliusCartBundle/Resources/config/routing.yml"
+    prefix: /cart
 

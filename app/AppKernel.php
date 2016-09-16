@@ -8,6 +8,10 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
+            new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
+            new Sylius\Bundle\MoneyBundle\SyliusMoneyBundle(),
+            new Sylius\Bundle\OrderBundle\SyliusOrderBundle(),
+            new Sylius\Bundle\CartBundle\SyliusCartBundle(),
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -19,7 +23,6 @@ class AppKernel extends Kernel
             // These are the other bundles the SonataAdminBundle relies on
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             // And finally, the storage and SonataAdminBundle
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
@@ -28,6 +31,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new AdminBundle\AdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
