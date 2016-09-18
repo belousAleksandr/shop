@@ -2,14 +2,23 @@
 
 namespace AdminBundle\Admin;
 
-use AppBundle\Entity\Product;
+use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ProductAdmin extends BaseAdmin
+class StoreCategoryAdmin extends Admin
 {
+    /**
+     * The related field reflection, ie if OrderElement is linked to Order,
+     * then the $parentReflectionProperty must be the ReflectionProperty of
+     * the order (OrderElement::$order).
+     *
+     * @var \ReflectionProperty
+     */
+    protected $parentAssociationMapping = 'store';
+
     /**
      * {@inheritdoc}
      */
@@ -32,9 +41,7 @@ class ProductAdmin extends BaseAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('category')
             ->add('name')
-            ->add('price')
         ;
     }
 
@@ -46,8 +53,6 @@ class ProductAdmin extends BaseAdmin
         $listMapper
             ->add('id')
             ->add('name')
-            ->add('category')
-            ->add('price')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -64,9 +69,8 @@ class ProductAdmin extends BaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('id')
             ->add('name')
-            ->add('category')
-            ->add('price')
         ;
     }
 
@@ -78,16 +82,6 @@ class ProductAdmin extends BaseAdmin
         $showMapper
             ->add('id')
             ->add('name')
-            ->add('price')
         ;
-    }
-
-    /**
-     * @param Product $object
-     */
-    public function prePersist($object)
-    {
-        $store = $this->getParent()->getSubject();
-        $object->setStore($store);
     }
 }

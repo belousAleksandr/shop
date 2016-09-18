@@ -42,6 +42,12 @@ class Store
      * @var ArrayCollection
      */
     private $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="store")
+     * @var ArrayCollection
+     */
+    private $categories;
     
     /**
      * Get id
@@ -75,6 +81,7 @@ class Store
     {
         return $this->name;
     }
+    
     /**
      * Constructor
      */
@@ -153,5 +160,38 @@ class Store
     public function __toString()
     {
         return $this->getId() ? $this->getName() : 'New store';
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \AppBundle\Entity\Category $categories
+     * @return Store
+     */
+    public function addCategory(\AppBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \AppBundle\Entity\Category $categories
+     */
+    public function removeCategory(\AppBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

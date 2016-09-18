@@ -2,29 +2,14 @@
 
 namespace AdminBundle\Admin;
 
-use AppBundle\Entity\Product;
+use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ProductAdmin extends BaseAdmin
+class CategoryAdmin extends Admin
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function createQuery($context = 'list')
-    {
-        $store = $this->getParent()->getSubject();
-        $query = parent::createQuery($context);
-
-        // Filter stores by user
-        $query
-            ->andWhere($query->expr()->eq($query->getRootAliases()[0].'.store', ':store'))
-            ->setParameter('store', $store);
-        return $query;
-    }
-
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -32,9 +17,8 @@ class ProductAdmin extends BaseAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('category')
             ->add('name')
-            ->add('price')
+            ->add('parent')
         ;
     }
 
@@ -46,8 +30,7 @@ class ProductAdmin extends BaseAdmin
         $listMapper
             ->add('id')
             ->add('name')
-            ->add('category')
-            ->add('price')
+            ->add('parent')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -65,8 +48,7 @@ class ProductAdmin extends BaseAdmin
     {
         $formMapper
             ->add('name')
-            ->add('category')
-            ->add('price')
+            ->add('parent')
         ;
     }
 
@@ -78,16 +60,6 @@ class ProductAdmin extends BaseAdmin
         $showMapper
             ->add('id')
             ->add('name')
-            ->add('price')
         ;
-    }
-
-    /**
-     * @param Product $object
-     */
-    public function prePersist($object)
-    {
-        $store = $this->getParent()->getSubject();
-        $object->setStore($store);
     }
 }

@@ -38,11 +38,6 @@ class Product
      * @ORM\OneToMany(targetEntity="Review", mappedBy="product")
      */
     protected $reviews;
-    
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
-    private $category;
 
     /**
      * @ORM\Column(type="float")
@@ -60,6 +55,12 @@ class Product
      * @ORM\Column(type="string")
      */
     private $delivery;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     */
+    private $category;
 
     /**
      * Get id
