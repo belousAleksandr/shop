@@ -27,4 +27,4 @@ services:
         class: AdminBundle\Admin\StoreCategoryAdmin
         arguments: [~, AppBundle\Entity\Category, AdminBundle:StoreCategoryAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Category}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Category, show_in_dashboard: false}

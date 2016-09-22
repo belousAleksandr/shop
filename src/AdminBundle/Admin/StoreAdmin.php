@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class StoreAdmin extends BaseAdmin
 {
-
+    protected $baseRouteName = 'admin_store';
     /**
      * {@inheritdoc}
      */

@@ -11,6 +11,15 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class ProductAdmin extends BaseAdmin
 {
     /**
+     * The related field reflection, ie if OrderElement is linked to Order,
+     * then the $parentReflectionProperty must be the ReflectionProperty of
+     * the order (OrderElement::$order).
+     *
+     * @var \ReflectionProperty
+     */
+    protected $parentAssociationMapping = 'store';
+
+    /**
      * {@inheritdoc}
      */
     public function createQuery($context = 'list')
@@ -80,14 +89,5 @@ class ProductAdmin extends BaseAdmin
             ->add('name')
             ->add('price')
         ;
-    }
-
-    /**
-     * @param Product $object
-     */
-    public function prePersist($object)
-    {
-        $store = $this->getParent()->getSubject();
-        $object->setStore($store);
     }
 }

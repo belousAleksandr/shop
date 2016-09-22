@@ -69,7 +69,7 @@ class StoreCategoryAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
+            ->add('parent', null, array(), array('admin_code' => 'admin.admin.category'))
             ->add('name')
         ;
     }
